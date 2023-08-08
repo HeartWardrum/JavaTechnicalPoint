@@ -1,0 +1,14 @@
+com\iweb\book\service\BookServiceImpl.class
+com\iweb\user\dao\UserDao.class
+com\iweb\util\PageModel.class
+com\iweb\book\pojo\Book.class
+com\iweb\user\service\UserServiceImpl.class
+com\iweb\user\servlet\UserServlet.class
+com\iweb\user\dao\UserDaoImpl.class
+com\iweb\book\servlet\BookServlet.class
+com\iweb\user\service\UserService.class
+com\iweb\book\service\BookService.class
+com\iweb\util\JdbcUtil.class
+com\iweb\user\pojo\User.class
+com\iweb\book\dao\BookDao.class
+com\iweb\book\dao\BookDaoImpl.class
