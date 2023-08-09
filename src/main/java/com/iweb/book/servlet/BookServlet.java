@@ -30,6 +30,9 @@ public class BookServlet extends HttpServlet {
             case "/selectByPage.book":
                 selectByPage(req, resp);
                 break;
+            case "/delete.book":
+                delete(req, resp);
+                break;
             default:
                 break;
         }
@@ -41,15 +44,19 @@ public class BookServlet extends HttpServlet {
         int pageNo = Integer.parseInt(req.getParameter("pageNo"));
         pm.setPageNo(pageNo);
         String likevalue = req.getParameter("likevalue");
-        likevalue=("null".equals(likevalue)?null:likevalue);
-        List<Book> books = bookService.selectByPage(likevalue,pm);
+        likevalue = ("null".equals(likevalue) ? null : likevalue);
+        List<Book> books = bookService.selectByPage(likevalue, pm);
         req.setAttribute("books", books);
-        req.setAttribute("likevalue",likevalue);
-        req.setAttribute("pageModel",pm);
+        req.setAttribute("likevalue", likevalue);
+        req.setAttribute("pageModel", pm);
         System.out.println("pm.getPageCount() = " + pm.getPageCount());
-        System.out.println("pm.getPageNo() = " + pm.getPageNo() );
-        req.getRequestDispatcher( "/book/book.jsp").forward(req, resp);
+        System.out.println("pm.getPageNo() = " + pm.getPageNo());
+        req.getRequestDispatcher("/book/book.jsp").forward(req, resp);
 
     }
 
+    private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("即将删除一条记录");
+
+    }
 }

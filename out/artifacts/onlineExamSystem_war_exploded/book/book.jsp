@@ -37,6 +37,31 @@
             margin-right: 45%;
         }
     </style>
+    <script type="text/javascript">
+        //窗口加载时执行该方法
+        window.onload = function () {
+            if ("<%=((PageModel)request.getAttribute("pageModel")).getPageNo()%>" == 1) {
+                document.getElementById("prea").href = "#";
+            }
+            if ("<%=((PageModel)request.getAttribute("pageModel")).getPageNo()%>" == "<%=((PageModel)request.getAttribute("pageModel")).getPageCount()%>") {
+                document.getElementById("nexta").href = "#";
+            }
+
+            var dels = document.getElementsByClassName("del");
+            for (var i = 0; i < dels.length; i++) {
+                dels[i].onclick = function () {
+                    // alert("点零一恶心");
+                    var bookname = this.parentNode.parentNode.getElementsByTagName("td")[1].firstChild.nodeValue;
+
+                    if (!confirm("确定删除" + bookname+ "吗？")) {
+
+                        return false;//阻止控件的默认行为  a标签的默认行为就是发请求
+                    }
+
+                }
+            }
+        }
+    </script>
 </head>
 <body>
 <%
@@ -72,26 +97,32 @@
             <td><%=book.getAuthor()%>
             </td>
             <td><a href="">Edit</a></td>
-            <td><a href="">Delete</a></td>
+            <td><a class="del" href="<%=request.getContextPath()%>/delete.book">Delete</a></td>
         </tr>
         <%}%>
     </table>
 </div>
 <div style="text-align:center">
     <%
-        PageModel pageModel = ((PageModel)request.getAttribute("pageModel"));
+        PageModel pageModel = ((PageModel) request.getAttribute("pageModel"));
         int pageCount = pageModel.getPageCount();
-        int preNo = Math.max(1,pageModel.getPageNo() - 1);
-        int nextNo = Math.min(pageModel.getPageNo() + 1,pageCount);
+//        int preNo = Math.max(1,pageModel.getPageNo() - 1);
+//        int nextNo = Math.min(pageModel.getPageNo() + 1,pageCount);
+        int preNo = pageModel.getPageNo() - 1;
+        int nextNo = pageModel.getPageNo() + 1;
+
         Object likevalue2 = request.getAttribute("likevalue");
 
     %>
     共 <%=pageCount%> 页
     &nbsp;
     <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=1&likevalue=<%=likevalue2%>">首页</a> &nbsp;
-    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=preNo%>&likevalue=<%=likevalue2%>">上一页</a> &nbsp;
-    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=nextNo%>&likevalue=<%=likevalue2%>">下一页</a> &nbsp;
-    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=pageCount%>&likevalue=<%=likevalue2%>">尾页</a> &nbsp;
+    <a id="prea"
+       href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=preNo%>&likevalue=<%=likevalue2%>">上一页</a> &nbsp;
+    <a id="nexta" href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=nextNo%>&likevalue=<%=likevalue2%>">下一页</a>
+    &nbsp;
+    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=pageCount%>&likevalue=<%=likevalue2%>">尾页</a>
+    &nbsp;
 
     当前第 <%=pageModel.getPageNo()%> 页
 </div>
