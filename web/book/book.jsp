@@ -81,15 +81,17 @@
     <%
         PageModel pageModel = ((PageModel)request.getAttribute("pageModel"));
         int pageCount = pageModel.getPageCount();
-        int preNo = pageModel.getPageNo() - 1;
-        int nextNo = pageModel.getPageNo() + 1;
+        int preNo = Math.max(1,pageModel.getPageNo() - 1);
+        int nextNo = Math.min(pageModel.getPageNo() + 1,pageCount);
+        Object likevalue2 = request.getAttribute("likevalue");
+
     %>
     共 <%=pageCount%> 页
     &nbsp;
-    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=1">首页</a> &nbsp;
-    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=preNo%>">上一页</a> &nbsp;
-    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=nextNo%>">下一页</a> &nbsp;
-    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=pageCount%>">尾页</a> &nbsp;
+    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=1&likevalue=<%=likevalue2%>">首页</a> &nbsp;
+    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=preNo%>&likevalue=<%=likevalue2%>">上一页</a> &nbsp;
+    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=nextNo%>&likevalue=<%=likevalue2%>">下一页</a> &nbsp;
+    <a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=<%=pageCount%>&likevalue=<%=likevalue2%>">尾页</a> &nbsp;
 
     当前第 <%=pageModel.getPageNo()%> 页
 </div>

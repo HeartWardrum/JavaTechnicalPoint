@@ -41,6 +41,7 @@ public class BookServlet extends HttpServlet {
         int pageNo = Integer.parseInt(req.getParameter("pageNo"));
         pm.setPageNo(pageNo);
         String likevalue = req.getParameter("likevalue");
+        likevalue=("null".equals(likevalue)?null:likevalue);
         List<Book> books = bookService.selectByPage(likevalue,pm);
         req.setAttribute("books", books);
         req.setAttribute("likevalue",likevalue);
