@@ -8,6 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <title>Title</title>
@@ -101,29 +102,23 @@
             <th>AUTHOR</th>
             <th colspan="2"></th>
         </tr>
-        <%
-            for (Book book : books) {
 
-        %>
-        <tr>
-            <td><%=book.getId()%>
-            </td>
-            <td><%=book.getBookname()%>
-            </td>
-            <td><%=book.getAuthor()%>
-            </td>
-            <td><a href="<%=request.getContextPath()%>/toEdit.book?id=<%=book.getId()%>">Edit</a></td>
-            <td><a class="del" href="<%=request.getContextPath()%>/delete.book?id=<%=book.getId()%>">Delete</a></td>
-        </tr>
-        <%}%>
+      <c:forEach items="${books}" var="book">
+          <tr>
+              <td>${book.id}</td>
+              <td>${book.bookname}</td>
+              <td>${book.author}</td>
+              <td><a href="<%=request.getContextPath()%>/toEdit.book?id=${book.id}">Edit</a></td>
+              <td><a class="del" href="<%=request.getContextPath()%>/delete.book?id=${book.id}">Delete</a></td>
+          </tr>
+      </c:forEach>
+
     </table>
 </div>
 <div style="text-align:center">
     <%
         PageModel pageModel = ((PageModel) request.getAttribute("pageModel"));
         int pageCount = pageModel.getPageCount();
-//        int preNo = Math.max(1,pageModel.getPageNo() - 1);
-//        int nextNo = Math.min(pageModel.getPageNo() + 1,pageCount);
         int preNo = pageModel.getPageNo() - 1;
         int nextNo = pageModel.getPageNo() + 1;
         int totalCount = pageModel.getTotalCount();
