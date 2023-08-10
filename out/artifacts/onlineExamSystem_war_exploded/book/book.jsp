@@ -17,6 +17,11 @@
 
         }
 
+        #addbutton {
+            height: 0px;
+            margin-left: 190px;
+        }
+
         #tab {
             border-collapse: collapse;
             margin-left: 190px;
@@ -73,6 +78,13 @@
 %>
 
 <div id="d1">
+
+
+    <div id="addbutton">
+        <form action="<%=request.getContextPath()%>/toEdit.book">
+            <input type="submit" value="新增"/>
+        </form>
+    </div>
     <div id="searchForm">
         <form action="<%=request.getContextPath()%>/selectByPage.book" method="post">
             <input type="text" name="likevalue" placeholder="请输入搜索关键字"

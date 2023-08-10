@@ -33,10 +33,19 @@ public class BookServlet extends HttpServlet {
             case "/delete.book":
                 delete(req, resp);
                 break;
+            case "/toEdit.book":
+                toEdit(req, resp);
+                break;
             default:
                 break;
         }
     }
+
+    //编辑
+    private void toEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/book/editBook.jsp").forward(req, resp);
+    }
+
 
     //分页查询
     private void selectByPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,13 +69,13 @@ public class BookServlet extends HttpServlet {
         //System.out.println("前端送来的book id = "  + req.getAttribute("bookid"));
         String id = req.getParameter("id");
         int res = bookService.deleteOne(Integer.parseInt(id));
-        if(res > 0){
-            req.setAttribute("message","删除成功！");
-            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req,resp);//刷新页面
+        if (res > 0) {
+            req.setAttribute("message", "删除成功！");
+            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req, resp);//刷新页面
 
-        }else{
-            req.setAttribute("message","删除失败！");
-            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req,resp);//刷新页面
+        } else {
+            req.setAttribute("message", "删除失败！");
+            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req, resp);//刷新页面
 
         }
 
