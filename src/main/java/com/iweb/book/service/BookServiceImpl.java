@@ -9,13 +9,13 @@ import com.iweb.util.PageModel;
 import java.util.List;
 import java.util.Map;
 
-public class BookServiceImpl implements BookService{
-   BookDao bookDao = new BookDaoImpl() ;
+public class BookServiceImpl implements BookService {
+    BookDao bookDao = new BookDaoImpl();
 
     @Override
     public List<Book> selectByPage(String likevalue, PageModel pageModel) {
 
-        return bookDao.selectByPage(likevalue,pageModel);
+        return bookDao.selectByPage(likevalue, pageModel);
     }
 
     @Override
@@ -25,12 +25,12 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Integer addOne(Book book) {
-        return null;
+        return bookDao.addOne(book);
     }
 
     @Override
     public Integer updateOne(Book book) {
-        return null;
+        return bookDao.addOne(book);
     }
 
     @Override

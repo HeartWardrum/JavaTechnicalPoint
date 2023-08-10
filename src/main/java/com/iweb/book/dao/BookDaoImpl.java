@@ -20,13 +20,13 @@ public class BookDaoImpl implements BookDao {
             sql.append(" where id like ? or bookname like ? or author like ? ");
             list = JdbcUtil.queryBySql(sql.toString(), param, param, param);
             pm.setTotalCount(list.size());
-            sql.append(" limit ?,? ");
+            sql.append(" order by id desc limit ?,? ");
             list = JdbcUtil.queryBySql(sql.toString(), param, param, param
                     , (pm.getPageNo() - 1) * pm.getPageSize(), pm.getPageSize());
         } else {
             list = JdbcUtil.queryBySql(sql.toString());
             pm.setTotalCount(list.size());
-            sql.append(" limit ?,?");
+            sql.append(" order by id desc limit ?,?");
             list = JdbcUtil.queryBySql(sql.toString(), (pm.getPageNo() - 1) * pm.getPageSize(), pm.getPageSize());
 
         }
@@ -46,7 +46,9 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Integer addOne(Book book) {
-        return null;
+        String sql = "insert into mybook values(null,?,?)";
+        return JdbcUtil.updateBySql(sql,book.getBookname(), book.getAuthor());
+
     }
 
     @Override
@@ -58,6 +60,6 @@ public class BookDaoImpl implements BookDao {
     public Integer deleteOne(Integer id) {
         String sql = "delete from mybook where id = ?";
 
-        return JdbcUtil.updateBySql(sql,id);
+        return JdbcUtil.updateBySql(sql, id);
     }
 }

@@ -36,12 +36,32 @@ public class BookServlet extends HttpServlet {
             case "/toEdit.book":
                 toEdit(req, resp);
                 break;
+            case "/edit.book":
+                edit(req, resp);
+                break;
             default:
                 break;
         }
     }
 
     //编辑
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String bookname = req.getParameter("bookname");
+        String author = req.getParameter("author");
+        Book book = new Book(null, bookname, author);
+        int res = bookService.addOne(book);
+        if (res > 0) {
+            req.setAttribute("message", "新增成功!");
+            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req,resp);
+        }else{
+            req.setAttribute("message", "新增失败！");
+            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req,resp);
+        }
+        req.getRequestDispatcher("/book/editBook.jsp").forward(req, resp);
+
+    }
+
+    //去编辑页面
     private void toEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/book/editBook.jsp").forward(req, resp);
     }
