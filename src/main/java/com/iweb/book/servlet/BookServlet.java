@@ -46,16 +46,26 @@ public class BookServlet extends HttpServlet {
 
     //编辑
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
         String bookname = req.getParameter("bookname");
         String author = req.getParameter("author");
-        Book book = new Book(null, bookname, author);
-        int res = bookService.addOne(book);
+        int res = 0;
+        if (id != null && !"".equals(id)) {
+            //修改
+            Book book = new Book(Integer.parseInt(id), bookname, author);
+            res = bookService.updateOne(book);
+        } else {
+            //新增
+            Book book = new Book(null, bookname, author);
+            res = bookService.addOne(book);
+
+        }
         if (res > 0) {
             req.setAttribute("message", "新增成功!");
-            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req,resp);
-        }else{
+            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req, resp);
+        } else {
             req.setAttribute("message", "新增失败！");
-            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req,resp);
+            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req, resp);
         }
         req.getRequestDispatcher("/book/editBook.jsp").forward(req, resp);
 
@@ -63,6 +73,13 @@ public class BookServlet extends HttpServlet {
 
     //去编辑页面
     private void toEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String id = req.getParameter("id");
+        if (id != null && !"".equals(id)) {
+            //修改
+            Book book = bookService.selectById(Integer.parseInt(id));
+            req.setAttribute("book", book);
+
+        }
         req.getRequestDispatcher("/book/editBook.jsp").forward(req, resp);
     }
 

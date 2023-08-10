@@ -1,4 +1,5 @@
-<%--
+<%@ page import="com.iweb.book.pojo.Book" %>
+<%@ page  %><%--
   Created by IntelliJ IDEA.
   User: HeartWardrum
   Date: 2023-08-10/0010
@@ -10,13 +11,14 @@
 <head>
     <title>Title</title>
     <style>
-        #editdiv{
-        margin-top:10%;
-            margin-left:30%;
+        #editdiv {
+            margin-top: 10%;
+            margin-left: 30%;
 
         }
-        #tab{
-            line-height:40px;
+
+        #tab {
+            line-height: 40px;
         }
 
 
@@ -44,24 +46,34 @@
     </style>
 </head>
 <body>
+
+<%
+    Book book = null;
+    if (request.getAttribute("book") != null) {
+        book = (Book) request.getAttribute("book");
+    }
+
+%>
 编辑页面
 <div id="editdiv">
     <form action="<%=request.getContextPath()%>/edit.book" method="post">
         <table id="tab">
             <tr>
                 <td>ID:</td>
-                <td><input type="text" name="id" readonly="readonly" placeholder="新增时无需填写"></td>
+                <td><input type="text" name="id" readonly="readonly"
+                           placeholder="新增时无需填写" value="<%=book==null?"":book.getId()%>"></td>
             </tr>
             <tr>
                 <td>BOOKNAME:</td>
-                <td><input type="text" name="bookname"></td>
+                <td><input type="text" name="bookname" value="<%=book==null?"":book.getBookname()%>"></td>
             </tr>
             <tr>
                 <td>AUTHOR:</td>
-                <td><input type="text" name="author"></td>
+                <td><input type="text" name="author" value="<%=book==null?"":book.getAuthor()%>"></td>
             </tr>
             <tr>
-                <td colspan="2" style="text-align:center"><input class="custom-button" type="submit" name="提 &nbsp;&nbsp; 交" ></td>
+                <td colspan="2" style="text-align:center"><input class="custom-button" type="submit"
+                                                                 name="提 &nbsp;&nbsp; 交"></td>
             </tr>
         </table>
     </form>

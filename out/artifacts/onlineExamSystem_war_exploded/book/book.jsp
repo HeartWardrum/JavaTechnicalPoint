@@ -112,7 +112,7 @@
             </td>
             <td><%=book.getAuthor()%>
             </td>
-            <td><a href="">Edit</a></td>
+            <td><a href="<%=request.getContextPath()%>/toEdit.book?id=<%=book.getId()%>">Edit</a></td>
             <td><a class="del" href="<%=request.getContextPath()%>/delete.book?id=<%=book.getId()%>">Delete</a></td>
         </tr>
         <%}%>

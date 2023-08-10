@@ -41,19 +41,27 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Book selectById(Integer id) {
-        return null;
+        String sql = "select * from mybook where id = ?";
+        List<Map<String, Object>> list = JdbcUtil.queryBySql(sql, id);
+        Map<String, Object> map = list.get(0);
+        Book book = new Book((Integer) map.get("id"), (String) map.get("bookname"), (String) map.get("author"));
+
+        return book;
     }
 
     @Override
     public Integer addOne(Book book) {
         String sql = "insert into mybook values(null,?,?)";
-        return JdbcUtil.updateBySql(sql,book.getBookname(), book.getAuthor());
+        return JdbcUtil.updateBySql(sql, book.getBookname(), book.getAuthor());
 
     }
 
     @Override
     public Integer updateOne(Book book) {
-        return null;
+
+        String sql = "update mybook set bookname = ? ,author = ? where id = ? ";
+
+        return JdbcUtil.updateBySql(sql, book.getBookname(), book.getAuthor(), book.getId());
     }
 
     @Override

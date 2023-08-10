@@ -20,7 +20,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book selectById(Integer id) {
-        return null;
+        return bookDao.selectById(id);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Integer updateOne(Book book) {
-        return bookDao.addOne(book);
+        return bookDao.updateOne(book);
     }
 
     @Override
