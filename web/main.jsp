@@ -66,39 +66,63 @@
 
         .menu {
             line-height: 40px;
-            color:#ffe870;
+            color: #ffe870;
         }
 
         #bodyrightiframe {
             width: 100%;
             height: 100%;
-            border:0;
+            border: 0;
         }
-        a{
-            color:#ffe870;
+
+        a {
+            color: #ffe870;
         }
-        #tuichudenglu{
-            text-align:right;
-            margin-right:20px;
+
+        #tuichudenglu {
+            text-align: right;
+            margin-right: 20px;
         }
     </style>
 
 </head>
 <body>
+
+<%
+    String username = request.getParameter("username");
+    if (username == null) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null && cookies.length > 0) {
+            for (int i = 0; i < cookies.length; i++) {
+                if ("username".equals(cookies[i].getName())) {
+                    username = cookies[i].getValue();
+                }
+            }
+        }
+    }else{
+        Cookie cookie = new Cookie("username",username);
+        cookie.setMaxAge(30);
+        response.addCookie(cookie);
+    }
+    if(username == null){
+        response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+    }
+%>
+
 <div id="top">
     <h3 id="h3">XXX管理系统</h3>
     <div id="tuichudenglu">
-        <a  href="<%=request.getContextPath()%>/logout.user">退出登录</a>
+        <a href="<%=request.getContextPath()%>/logout.user">退出登录</a>
     </div>
 </div>
 <div id="body">
     <div id="bodyLeft">
-        <ul >
+        <ul>
             <div class="menu">
-                <li><a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=1" target="bodyright" >图书管理</a></li>
+                <li><a href="<%=request.getContextPath()%>/selectByPage.book?pageNo=1" target="bodyright">图书管理</a></li>
             </div>
             <div class="menu">
-                <li><a href="<%=request.getContextPath()%>/user/user.jsp" target="bodyright" >类别管理</a></li>
+                <li><a href="<%=request.getContextPath()%>/user/user.jsp" target="bodyright">类别管理</a></li>
             </div>
             <div class="menu">
                 <li><a href="<%=request.getContextPath()%>/user/user.jsp" target="bodyright">用户管理</a></li>

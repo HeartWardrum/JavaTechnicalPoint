@@ -13,6 +13,6 @@
 </head>
 <body>
 <%--  <jsp:forward page="/user/login.jsp" />--%>
-<c:redirect url="/user/login.jsp"></c:redirect>
+<c:redirect url="/main.jsp"></c:redirect>
 </body>
 </html>
