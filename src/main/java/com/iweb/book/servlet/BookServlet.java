@@ -57,6 +57,19 @@ public class BookServlet extends HttpServlet {
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("即将删除一条记录");
+        //System.out.println("前端送来的book id = "  + req.getAttribute("bookid"));
+        String id = req.getParameter("id");
+        int res = bookService.deleteOne(Integer.parseInt(id));
+        if(res > 0){
+            req.setAttribute("message","删除成功！");
+            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req,resp);//刷新页面
+
+        }else{
+            req.setAttribute("message","删除失败！");
+            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req,resp);//刷新页面
+
+        }
+
 
     }
 }

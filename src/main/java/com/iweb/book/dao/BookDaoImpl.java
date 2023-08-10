@@ -55,7 +55,9 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Integer deleteOne(Book book) {
-        return null;
+    public Integer deleteOne(Integer id) {
+        String sql = "delete from mybook where id = ?";
+
+        return JdbcUtil.updateBySql(sql,id);
     }
 }

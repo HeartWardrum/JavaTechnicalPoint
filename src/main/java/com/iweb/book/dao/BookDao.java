@@ -19,7 +19,7 @@ public interface BookDao {
     public Integer updateOne(Book book);
 
     //删除一条记录
-    public Integer deleteOne(Book book);
+    public Integer deleteOne(Integer id);
 
 
 }

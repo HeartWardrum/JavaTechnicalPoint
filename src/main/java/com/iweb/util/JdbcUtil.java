@@ -87,7 +87,7 @@ public class JdbcUtil {
     /*
     增删改
      */
-    public static <T> void editBySql(String sql, T... t) {
+    public static <T> Integer updateBySql(String sql, T... t) {
         int result = 0;
         try {
             pstat = getConn().prepareStatement(sql);
@@ -101,5 +101,6 @@ public class JdbcUtil {
         } finally {
             closeSource();
         }
+        return  result;
     }
 }

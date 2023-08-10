@@ -34,7 +34,7 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Integer deleteOne(Book book) {
-        return null;
+    public Integer deleteOne(Integer id) {
+        return bookDao.deleteOne(id);
     }
 }
