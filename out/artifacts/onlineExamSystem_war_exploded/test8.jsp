@@ -12,16 +12,26 @@
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            $("#str").keyup(function () {
+            $("#str").change(function () {
                 var param = $("#str").val();
+                var jsonObj = {
+                    "str": param
+                };
                 var url = "<%=request.getContextPath()%>/test6?str=" + param;
-                $("#message").load(url);
+                $.post(url, jsonObj, function (data) {
+                    var resultObj = JSON.parse(data);
+                    if (resultObj.flag == 1) {
+                        $("#message").css("color", "green").html("恭喜您，该用户名可以使用");
+                    } else {
+                        $("#message").css("color", "red").html("对不起，该用户名已存在");
+                    }
+                });
             })
         })
     </script>
 </head>
 <body>
 <input type="text" id="str"/>
-<span id="message" style="color:red"></span>
+<span id="message"></span>
 </body>
 </html>

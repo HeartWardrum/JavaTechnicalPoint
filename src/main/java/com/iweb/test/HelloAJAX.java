@@ -5,9 +5,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HelloAJAX extends HttpServlet {
-
 
 
     @Override
@@ -26,9 +27,17 @@ public class HelloAJAX extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("text/html");
+        List<String> list = new ArrayList<>();
+        list.add("Tom");
+        list.add("Jerry");
+        String result = "";
         String str = req.getParameter("str");
+        if (list.contains(str)) {
+            result = "{\"flag\":0}";
+        } else {
+            result = "{\"flag\":1}";
+        }
         System.out.println("来了个POST请求");
-        resp.getWriter().print("你好，这是我给你的返回值" + str);
-        //test the second git repository
+        resp.getWriter().print(result);
     }
 }
