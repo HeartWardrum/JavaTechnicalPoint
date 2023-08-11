@@ -14,6 +14,9 @@
         $(function () {
             $("#str").keyup(function () {
                 var param = $("#str").val();
+                var jsonObj = {
+                    "str":param
+                };
                 var url = "<%=request.getContextPath()%>/test6?str=" + param;
                 $("#message").load(url);
             })
