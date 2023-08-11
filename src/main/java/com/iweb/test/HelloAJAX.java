@@ -15,5 +15,6 @@ public class HelloAJAX extends HttpServlet {
         resp.setContentType("text/html");
         System.out.println("来了个请求");
         resp.getWriter().print("你好，这是我给你的返回值");
+        //test the second git repository
     }
 }
