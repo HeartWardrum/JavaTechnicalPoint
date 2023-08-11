@@ -13,9 +13,10 @@
         window.onload = function () {
             var strNode = document.getElementById("str");
             strNode.onkeyup = function () {
+                var strvalue = this.value;
                 var request = new XMLHttpRequest();//定义一个AJAX的核心对象
                 var method = "GET";
-                var url = "<%=request.getContextPath()%>/test6";
+                var url = "<%=request.getContextPath()%>/test6?str=" + strvalue;
                 request.open(method, url);//装载
                 request.send(null);
                 request.onreadystatechange = function () {

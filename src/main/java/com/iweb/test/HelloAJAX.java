@@ -13,8 +13,9 @@ public class HelloAJAX extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("text/html");
+        String str = req.getParameter("str");
         System.out.println("来了个请求");
-        resp.getWriter().print("你好，这是我给你的返回值");
+        resp.getWriter().print("你好，这是我给你的返回值" + str);
         //test the second git repository
     }
 }
