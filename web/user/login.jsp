@@ -12,11 +12,21 @@
     <title>login</title>
 </head>
 <body>
+<%
+    Cookie[] cookies = request.getCookies();
+    if(cookies!=null&&cookies.length>0){
+        for(Cookie cookie : cookies){
+            if("username".equals(cookie.getName())){
+                cookie.setMaxAge(0);//使Cookie失效
+                response.addCookie(cookie);//通知浏览器更新该Cookie状态
+            }
+        }
+    }
 
-<c:import url="http://www.baidu.com" charEncoding="utf-8"></c:import>
 
 
 
+%>
 
 
 <h3>用户登录</h3>

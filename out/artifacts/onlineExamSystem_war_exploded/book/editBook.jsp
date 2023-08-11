@@ -1,5 +1,6 @@
 <%@ page import="com.iweb.book.pojo.Book" %>
-<%@ page  %><%--
+<%@ page import="java.util.UUID" %>
+<%@ page %><%--
   Created by IntelliJ IDEA.
   User: HeartWardrum
   Date: 2023-08-10/0010
@@ -56,7 +57,14 @@
 <%--%>--%>
 编辑页面
 <div id="editdiv">
+
+    <%
+        String uuid = UUID.randomUUID() + "";
+        out.print(uuid);
+        session.setAttribute("flag", uuid);
+    %>
     <form action="${pageContext.request.contextPath}/edit.book" method="post">
+        <input type="hidden" name="flagparam" value="<%=uuid%>">
         <table id="tab">
             <tr>
                 <td>ID:</td>

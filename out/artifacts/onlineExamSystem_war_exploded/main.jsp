@@ -106,6 +106,9 @@
     }
     if(username == null){
         response.sendRedirect(request.getContextPath() + "/user/login.jsp");
+    }else{
+        session.setAttribute("username",username);
+
     }
 %>
 
@@ -113,6 +116,9 @@
     <h3 id="h3">XXX管理系统</h3>
     <div id="tuichudenglu">
         <a href="<%=request.getContextPath()%>/logout.user">退出登录</a>
+    </div>
+    <div style="float:left">
+        <span style="color:red">欢迎回来，亲爱的 ${sessionScope.username}</span>
     </div>
 </div>
 <div id="body">

@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,6 +24,14 @@ public class BookServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        //检查Session，判断请求是否绕过了登录页面
+        String username = (String) req.getSession().getAttribute("username");
+        if (username == null) {
+            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+            return;
+        }
+
 
         req.setCharacterEncoding("utf-8");
         String path = req.getServletPath();
@@ -46,28 +55,46 @@ public class BookServlet extends HttpServlet {
 
     //编辑
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-        String bookname = req.getParameter("bookname");
-        String author = req.getParameter("author");
-        int res = 0;
-        if (id != null && !"".equals(id)) {
-            //修改
-            Book book = new Book(Integer.parseInt(id), bookname, author);
-            res = bookService.updateOne(book);
-        } else {
-            //新增
-            Book book = new Book(null, bookname, author);
-            res = bookService.addOne(book);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        }
-        if (res > 0) {
-            req.setAttribute("message", "新增成功!");
-            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req, resp);
+        HttpSession session = req.getSession();
+        String flag = (String) session.getAttribute("flag");
+        String flagparam = req.getParameter("flagparam");
+        if (flag != null && flag.equals(flagparam)) {
+            session.setAttribute("flag", "");
+            String id = req.getParameter("id");
+            String bookname = req.getParameter("bookname");
+            String author = req.getParameter("author");
+
+
+            int res = 0;
+            if (id != null && !"".equals(id)) {
+                //修改
+                Book book = new Book(Integer.parseInt(id), bookname, author);
+                res = bookService.updateOne(book);
+            } else {
+                //新增
+                Book book = new Book(null, bookname, author);
+                res = bookService.addOne(book);
+
+            }
+            if (res > 0) {
+                req.setAttribute("message", "新增成功!");
+                req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req, resp);
+            } else {
+                req.setAttribute("message", "新增失败！");
+                req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req, resp);
+            }
+            req.getRequestDispatcher("/book/editBook.jsp").forward(req, resp);
+
         } else {
-            req.setAttribute("message", "新增失败！");
-            req.getRequestDispatcher("/selectByPage.book?pageNo=1").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/token.jsp");
         }
-        req.getRequestDispatcher("/book/editBook.jsp").forward(req, resp);
+
 
     }
 
