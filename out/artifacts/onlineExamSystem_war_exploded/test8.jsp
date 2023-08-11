@@ -14,6 +14,7 @@
         $(function(){
             alert("hello jquery");
         })
+        //fg
     </script>
 
 
