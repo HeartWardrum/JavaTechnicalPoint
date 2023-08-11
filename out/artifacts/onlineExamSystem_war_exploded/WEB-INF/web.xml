@@ -24,4 +24,13 @@
         <servlet-name>book</servlet-name>
         <url-pattern>*.book</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>test6</servlet-name>
+        <servlet-class>com.iweb.test.HelloAJAX</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>test6</servlet-name>
+        <url-pattern>/test6</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -6,6 +6,7 @@ com\iweb\user\service\UserServiceImpl.class
 com\iweb\user\servlet\UserServlet.class
 com\iweb\user\dao\UserDaoImpl.class
 com\iweb\book\servlet\BookServlet.class
+com\iweb\test\HelloAJAX.class
 com\iweb\user\service\UserService.class
 com\iweb\book\service\BookService.class
 com\iweb\util\JdbcUtil.class
